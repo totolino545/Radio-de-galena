@@ -1,0 +1,43 @@
+<!---
+	Modified From: https://codepen.io/kirkbyo/pen/YPOBEJ
+	Light Version: https://codepen.io/cmd430/pen/ZYqPea
+--->
+
+
+<div class="position-relative " >
+	<div  class="toast-container position-fixed bottom-0 end-0 me-2" >
+<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style=" width: 430px;">
+	<div class="toast-header">
+	  <img src="/static/img/radio.jpg"  class="rounded-start" style="height: 20px;"alt="">
+	  <span id="radio" class="ms-2 me-auto text-break">Radio de Galena</span>
+	  
+	  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+	</div>
+	<div class="toast-body p-0 "style="--bs-toast-bg: rgba(0,0,0);" >
+		<div class="player">
+			<div>
+				<div class="artwork"> </div> 
+			</div>
+			<div class="info d-flex flex-column ">			
+					<h4 id="interprete" class="mb-2">Intérprete</h4>
+					<h5 id="titulo" class="mb-2">Título</h5>					
+					<div class="button-items">
+						<audio id="music" controls poster="play.png" autoplay>
+							<source src="" type="audio/mp3" >
+						</audio>					
+					</div>
+					<h5 id="country" class="mt-2">Country</h5>
+					<div class="d-flex flex-row mb-1 ">
+						<h6 id="codec">Codec</h6>
+						<h6 id="bitrate">Bitrate</h6>
+					</div>
+
+			</div>		
+
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+{% include 'header.html' %}
+           
+                <div id="results" class="container-fluid w-100 flex-row bd-highlight position-absolute mx-auto p-2 z-n1 ">
+                    
+                    {% if estaciones %}
+                    <div class="bd-highlight" id="root">
+                        
+                        <table class="table w-75 mx-auto table-bordered border border-success p-2 mb-2 table-striped table align-middle " id="table">
+                            <div>
+                                <thead class="thead- text-center">
+                                    <tr>
+                                        <th scope="col">Escuchar</th>
+                                        <th scope="col">Radio</th>
+                                        <th scope="col">Pais</th>
+                                        <th scope="col">Codec</th>
+                                        <th scope="col">Bitrate</th>
+                                    </tr>
+                                </thead>
+                            </div>
+                            <tbody class="tbody" id="tbody">
+                                {% for estacion in estaciones %}
+                                <tr class="flex-row bd-highlight">
+                                    <td>         
+                                        <button type="button" class="btn btn-primary btn-sm" 
+                                            onclick="reproducirAudio('{{ estacion.url_resolved }}', 
+                                            '{{ estacion.favicon or '/static/img/radio.jpg' }}', '{{ estacion.name }}',
+                                            '{{ estacion.country}}', '{{ estacion.bitrate }}', '{{ estacion.codec }}')">                                                                                                   
+                                            <img class="w-100" style="height: 50px" src="{{ estacion.favicon or '/static/img/radio.jpg' }}" alt="Descripción de la imagen">                                                                    
+                                        </button>
+                                    </td>
+                                    <td>{{ estacion.name }}</td>
+                                    <td>{{ estacion.country }}</td>
+                                    <td>{{ estacion.codec }}</td>                             
+                                    <td>{{ estacion.bitrate }}</td>
+                                </tr>   
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        {% else %}
+                <div class="d-flex flex-row gap-2 align-middle ">
+                    <img src="/static/img/radio.jpg" class="img-thumbnail m-1" style="height: 4rem;" alt="...">
+                <figure class="w-75 m-0 mt-2">            
+                    <blockquote class="blockquote">
+                      <h1>No hay nada que mostrar!!!!</h1>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                      <cite title="Source Title">Vuelva a intentar! </cite>
+                    </figcaption>
+                  </figure>
+                  {% endif %}
+                    </div>
+                
+            </div>
+                    
+                </div>
+
+{% include 'audio.html' %}  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+
+<script src="/static/js/script.js"></script> 
+</body>
+</html>
