@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-import os
-
-from servicios import*
+from servicios import*  # noqa: F403
 from metadatos import*
 
 app = Flask(__name__)
