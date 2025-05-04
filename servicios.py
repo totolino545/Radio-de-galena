@@ -5,7 +5,7 @@ import requests
 class Servicios:
     
     def todos_los_tags():
-            url = 'http://fi1.api.radio-browser.info/json/tags/?hidebroken=true&reverse=true&order=stationcount'
+            url = 'https://de1.api.radio-browser.info/json/tags/?hidebroken=true&reverse=true&order=stationcount'
             response = requests.get(url)
             data = response.json()
             return data
