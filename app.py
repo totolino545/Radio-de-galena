@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request, render_template
+import os
+from flask_cors import CORS
 from servicios import*  # noqa: F403
 from metadatos import*  # noqa: F403
 
 app = Flask(__name__)
+CORS(app)  # Esto habilita CORS para toda la app
 
 @app.route('/')
 def index():
