@@ -28,5 +28,21 @@ def cargar_metadata():
         # Renderizar alguna respuesta o redirigir
         return jsonify(metadato)
 
+@app.route('/radios', methods=['GET'])
+def radios():
+    genero = request.args.get('genero', 'blues')
+    resultado, status = Servicios.obtener_radios(genero)
+    return jsonify(resultado), status
+
+@app.route('/radio/<radio_id>', methods=['GET'])
+def radio_por_id(radio_id):
+    resultado, status = Servicios.obtener_radio_por_id(radio_id)
+    return jsonify(resultado), status
+
+@app.route('/metadato/<id>', methods=['GET'])
+def metadata_por_id(id):
+    resultado, status = Servicios.obtener_metadata_por_id(id)
+    return jsonify(resultado), status
+
 if __name__ == '__main__':
     app.run(debug=True)
