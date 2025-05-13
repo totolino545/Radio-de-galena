@@ -42,7 +42,7 @@ class Servicios:
             return {'error': str(e)}, 500
 
     def obtener_metadata_por_id(id):
-        url = f'https://api.zeno.fm/mounts/metadata/subscribe/{id}'
+        url = f'https://api.zeno.fm/mounts/metadata/subscribe/{id}/'
         try:
             with requests.get(url, stream=True, timeout=10) as response:
                 response.raise_for_status()
