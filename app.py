@@ -24,6 +24,7 @@ def cargar_estaciones():
         return render_template('estaciones/index.html', estaciones=estaciones, tags=tags, limit=limit)
 
 @app.route('/reproduciendo', methods=['GET'])
+@cross_origin()  # Habilita CORS para esta ruta
 def cargar_metadata():
         url = request.args.get('url')              
         metadato = Metadatos.obtener_metadatos_shoutcast(url)
