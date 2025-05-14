@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 import os
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from servicios import*  # noqa: F403
 from metadatos import*  # noqa: F403
 
