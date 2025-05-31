@@ -3,9 +3,11 @@ import os
 from flask_cors import CORS, cross_origin
 from servicios import*  # noqa: F403
 from metadatos import*  # noqa: F403
+from buscador_imagenes import Buscador_Imagenes
 
 app = Flask(__name__)
 CORS(app)  # Esto habilita CORS para toda la app
+buscador = Buscador_Imagenes()  # Instancia correcta del buscador de imágenes
 
 @app.route('/')
 def index():
@@ -47,6 +49,34 @@ def radio_por_id(radio_id):
 def metadata_por_id(id):
     resultado, status = Servicios.obtener_metadata_por_id(id)
     return jsonify(resultado), status
+
+@app.route('/imagenes', methods=['GET'])
+def cargar_imagenes():
+    json_artistas = request.args.get('json_artistas')
+    if not json_artistas:
+        return jsonify({'error': 'Parámetro "json_artistas" requerido'}), 400
+    
+    try:
+        # Parsear el JSON a una lista de artistas
+        lista_artistas = json.loads(json_artistas)
+        
+        # Validar que sea una lista y tenga máximo 5 elementos
+        if not isinstance(lista_artistas, list) or len(lista_artistas) > 5:
+            return jsonify({'error': 'El parámetro debe ser un JSON array con máximo 5 artistas'}), 400
+        
+        resultados = {}
+        for artista in lista_artistas:
+            # Buscar imágenes para cada artista
+            imagenes = buscador.buscar_imagenes(artista)
+            resultados[artista] = imagenes if imagenes else []
+        
+        return jsonify(resultados)
+    
+    except json.JSONDecodeError:
+        return jsonify({'error': 'Formato JSON inválido'}), 400
+    except Exception as e:
+        print(f"Error en el servidor: {e}")
+        return jsonify({'error': 'Error interno del servidor'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
