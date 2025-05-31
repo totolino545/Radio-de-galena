@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, jsonify, json
+from flask import Flask, jsonify, request, render_template, json
 import os
 from flask_cors import CORS, cross_origin
 from servicios import*  # noqa: F403
