@@ -4,10 +4,12 @@ from flask_cors import CORS, cross_origin
 from servicios import*  # noqa: F403
 from metadatos import*  # noqa: F403
 from buscador_imagenes import Buscador_Imagenes
+from traductor import Traducir
 
 app = Flask(__name__)
 CORS(app)  # Esto habilita CORS para toda la app
 buscador = Buscador_Imagenes()  # Instancia correcta del buscador de imágenes
+traductor = Traducir()  # Instancia correcta del traductor
 
 @app.route('/')
 def index():
@@ -77,6 +79,17 @@ def cargar_imagenes():
     except Exception as e:
         print(f"Error en el servidor: {e}")
         return jsonify({'error': 'Error interno del servidor'}), 500
+
+@app.route('/traducir', methods=['GET'])
+def obtener_traduccion():
+    texto = request.args.get('texto')
+    
+    if not texto:
+        return jsonify({'error': 'Parámetro "texto" requerido'}), 400
+    
+    # Llamar al método de la INSTANCIA
+    resultado, codigo_estado = traductor.traducir_texto(texto)
+    return jsonify(resultado), codigo_estado
 
 if __name__ == '__main__':
     app.run(debug=True)
