@@ -5,11 +5,13 @@ from servicios import*  # noqa: F403
 from metadatos import*  # noqa: F403
 from buscador_imagenes import Buscador_Imagenes
 from traductor import Traducir
+from buscador_textos import Buscador_Textos
 
 app = Flask(__name__)
 CORS(app)  # Esto habilita CORS para toda la app
 buscador = Buscador_Imagenes()  # Instancia correcta del buscador de imágenes
 traductor = Traducir()  # Instancia correcta del traductor
+buscador_textos = Buscador_Textos()  # Instancia correcta del buscador de textos
 
 @app.route('/')
 def index():
@@ -90,6 +92,19 @@ def obtener_traduccion():
     # Llamar al método de la INSTANCIA
     resultado, codigo_estado = traductor.traducir_texto(texto)
     return jsonify(resultado), codigo_estado
+
+@app.route('/texto', methods=['GET'])
+def buscar_texto():
+    texto = request.args.get('texto')
+    if not texto:
+        return jsonify({'error': 'Parámetro "texto" requerido'}), 400
+    try:
+        summary = buscador_textos.buscar_textos(texto, max_resultados=1)
+        if not summary:
+            return jsonify({'error': 'No se encontraron resultados en la busqueda'}), 404
+        return jsonify({'summary': summary})
+    except Exception as e:
+        print(f"Error en el servidor: {e}")
 
 if __name__ == '__main__':
     app.run(debug=True)
