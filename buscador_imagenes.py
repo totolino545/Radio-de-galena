@@ -5,7 +5,7 @@ class Buscador_Imagenes:
     @staticmethod
     def buscar_imagenes(nombresArtistas, max_resultados=2):
         try:
-            with DDGS(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)") as ddgs:
+            with DDGS() as ddgs:
                 resultados = []
                 # Buscar imágenes usando DuckDuckGo
                 for resultado in ddgs.images(
