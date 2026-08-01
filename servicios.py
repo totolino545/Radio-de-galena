@@ -1,6 +1,7 @@
 #CONTROLADOR
 from flask import jsonify, request
 import requests
+import json
 
 class Servicios:
     
